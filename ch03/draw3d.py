@@ -1,25 +1,12 @@
 from math import sqrt, pi
 import matplotlib
 import os
-from matplotlib.patches import Polygon, FancyArrowPatch
+from matplotlib.patches import Polygon
 from matplotlib.collections import PatchCollection
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D, proj3d
+from mpl_toolkits.mplot3d import Axes3D
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 from colors import *
-
-
-## https://stackoverflow.com/a/22867877/1704140
-class FancyArrow3D(FancyArrowPatch):
-    def __init__(self, xs, ys, zs, *args, **kwargs):
-        FancyArrowPatch.__init__(self, (0, 0), (0, 0), *args, **kwargs)
-        self._verts3d = xs, ys, zs
-
-    def draw(self, renderer):
-        xs3d, ys3d, zs3d = self._verts3d
-        xs, ys, zs = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
-        self.set_positions((xs[0], ys[0]), (xs[1], ys[1]))
-        FancyArrowPatch.draw(self, renderer)
 
 
 class Polygon3D:
@@ -146,11 +133,12 @@ def draw3d(
                 )
 
         elif type(object) == Arrow3D:
-            xs, ys, zs = zip(object.tail, object.tip)
-            a = FancyArrow3D(
-                xs, ys, zs, mutation_scale=20, arrowstyle="-|>", color=object.color
-            )
-            ax.add_artist(a)
+            tip = object.tip
+            tail = object.tail
+            dx = tip[0] - tail[0]
+            dy = tip[1] - tail[1]
+            dz = tip[2] - tail[2]
+            ax.quiver(tail[0], tail[1], tail[2], dx, dy, dz, color=object.color)
 
         elif type(object) == Segment3D:
             draw_segment(
