@@ -451,15 +451,15 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "isort", specifier = ">=8.0.1" },
-    { name = "matplotlib", specifier = ">=3.10.8" },
-    { name = "numpy", specifier = ">=2.4.0" },
-    { name = "pygame-ce", specifier = ">=2.5.7" },
+    { name = "isort", specifier = ">=9.0.2" },
+    { name = "matplotlib", specifier = ">=3.11.2" },
+    { name = "numpy", specifier = ">=2.5.4" },
+    { name = "pygame-ce", specifier = ">=2.5.8" },
     { name = "pyopengl", specifier = ">=3.1.10" },
 ]
 
 [package.metadata.requires-dev]
-dev = [{ name = "ipykernel", specifier = ">=7.2.0" }]
+dev = [{ name = "ipykernel", specifier = ">=7.4.0" }]
 
 [[package]]
 name = "matplotlib"
